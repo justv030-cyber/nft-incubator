@@ -8,6 +8,9 @@ contract staking {
     IERC721 immutable NFT;
     IERC20 immutable Token;
 
+    uint256 public reward;
+    uint256 public time;
+
     mapping(address => mapping(uint256 => uint256)) public stakes;
 
     constructor(address _NFT, address _Token) {
@@ -15,16 +18,14 @@ contract staking {
         Token = IERC20(_Token);
     }
 
-    function calculateRate(uint256 _time)public pure returns (uint256 time) {
+    function calculateRate(uint256 _time) public pure returns (uint256 ) {
         if (_time < 1 minutes) {
             return 0;
-        }else if (_time < 3 minutes){
+        } else if (_time < 3 minutes) {
             return 3;
-        }
-        else if(_time < 4 minutes){
+        } else if (_time < 4 minutes) {
             return 4;
-        }
-        else{
+        } else {
             return 10;
         }
     }
@@ -40,7 +41,8 @@ contract staking {
 
     function calculateReward(uint256 _tokenId) public {
         require(stakes[msg.sender][_tokenId] > 0, "You Dont Have NFT");
-        uint256 time = block.timestamp - stakes[msg.sender][_tokenId];
+        time = block.timestamp - stakes[msg.sender][_tokenId];
+        reward = calculateRate(time) * time * (10 ** 18);
     }
 
     function unstake(uint256 _tokenId) public {}
