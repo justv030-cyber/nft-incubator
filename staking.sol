@@ -18,7 +18,7 @@ contract staking {
         Token = IERC20(_Token);
     }
 
-    function calculateRate(uint256 _time) public pure returns (uint256 ) {
+    function calculateRate(uint256 _time) private pure returns (uint256) {
         if (_time < 1 minutes) {
             return 0;
         } else if (_time < 3 minutes) {
@@ -39,11 +39,17 @@ contract staking {
         NFT.transferFrom(msg.sender, address(this), _tokenId);
     }
 
-    function calculateReward(uint256 _tokenId) public {
+    function calculateReward(uint256 _tokenId) public returns (uint256) {
         require(stakes[msg.sender][_tokenId] > 0, "You Dont Have NFT");
         time = block.timestamp - stakes[msg.sender][_tokenId];
-        reward = calculateRate(time) * time * (10 ** 18); //18 decimals
+        reward = (calculateRate(time) * time * (10 ** 18)) / 1 minutes; //18 decimals
+        return reward;
     }
 
-    function unstake(uint256 _tokenId) public {}
+    function unstake(uint256 _tokenId) public {
+        uint256 rewardAmt = calculateReward(_tokenId);
+        delete stakes[msg.sender][_tokenId];
+        NFT.transferFrom(address(this), msg.sender, _tokenId);
+        Token.transfer(msg.sender, rewardAmt);
+    }
 }
