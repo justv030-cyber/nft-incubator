@@ -42,7 +42,7 @@ contract staking {
     function calculateReward(uint256 _tokenId) public {
         require(stakes[msg.sender][_tokenId] > 0, "You Dont Have NFT");
         time = block.timestamp - stakes[msg.sender][_tokenId];
-        reward = calculateRate(time) * time * (10 ** 18);
+        reward = calculateRate(time) * time * (10 ** 18); //18 decimals
     }
 
     function unstake(uint256 _tokenId) public {}
