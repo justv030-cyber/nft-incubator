@@ -3,8 +3,9 @@ pragma solidity ^0.8.34;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/IERC721Receiver.sol";
 
-contract staking {
+abstract contract staking is IERC721Receiver {
     IERC721 immutable NFT;
     IERC20 immutable Token;
 
@@ -52,4 +53,5 @@ contract staking {
         NFT.transferFrom(address(this), msg.sender, _tokenId);
         Token.transfer(msg.sender, rewardAmt);
     }
+    
 }

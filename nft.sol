@@ -17,7 +17,7 @@ contract Web3Builders is ERC721, ERC721Enumerable, Pausable, Ownable {
     mapping(address => bool) public allowList;
 
     constructor()
-        ERC721("Web3Builders", "WE3")
+        ERC721("harshil", "HRS")
         Ownable(msg.sender)
     {}
 
