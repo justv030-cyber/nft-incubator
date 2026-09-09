@@ -22,5 +22,16 @@
   "@openzeppelin/contracts@5.6.1/token/ERC20/ERC20.sol": ".deps/npm/@openzeppelin/contracts@5.6.1/token/ERC20/ERC20.sol",
   "@openzeppelin/contracts@5.6.1/token/ERC20/IERC20.sol": ".deps/npm/@openzeppelin/contracts@5.6.1/token/ERC20/IERC20.sol",
   "@openzeppelin/contracts@5.6.1/token/ERC20/extensions/IERC20Metadata.sol": ".deps/npm/@openzeppelin/contracts@5.6.1/token/ERC20/extensions/IERC20Metadata.sol",
-  "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/master/contracts/token/ERC721/IERC721Receiver.sol": ".deps/github/OpenZeppelin/openzeppelin-contracts@master/contracts/token/ERC721/IERC721Receiver.sol"
+  "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/master/contracts/token/ERC721/IERC721Receiver.sol": ".deps/github/OpenZeppelin/openzeppelin-contracts@master/contracts/token/ERC721/IERC721Receiver.sol",
+  "@openzeppelin/contracts@5.6.1/token/ERC20/extensions/ERC20Burnable.sol": ".deps/npm/@openzeppelin/contracts@5.6.1/token/ERC20/extensions/ERC20Burnable.sol",
+  "@openzeppelin/contracts@5.6.1/token/ERC20/extensions/ERC20Pausable.sol": ".deps/npm/@openzeppelin/contracts@5.6.1/token/ERC20/extensions/ERC20Pausable.sol",
+  "@openzeppelin/contracts@5.6.1/token/ERC20/extensions/ERC20Permit.sol": ".deps/npm/@openzeppelin/contracts@5.6.1/token/ERC20/extensions/ERC20Permit.sol",
+  "@openzeppelin/contracts@5.6.1/token/ERC20/extensions/IERC20Permit.sol": ".deps/npm/@openzeppelin/contracts@5.6.1/token/ERC20/extensions/IERC20Permit.sol",
+  "@openzeppelin/contracts@5.6.1/utils/cryptography/ECDSA.sol": ".deps/npm/@openzeppelin/contracts@5.6.1/utils/cryptography/ECDSA.sol",
+  "@openzeppelin/contracts@5.6.1/utils/cryptography/EIP712.sol": ".deps/npm/@openzeppelin/contracts@5.6.1/utils/cryptography/EIP712.sol",
+  "@openzeppelin/contracts@5.6.1/utils/cryptography/MessageHashUtils.sol": ".deps/npm/@openzeppelin/contracts@5.6.1/utils/cryptography/MessageHashUtils.sol",
+  "@openzeppelin/contracts@5.6.1/utils/ShortStrings.sol": ".deps/npm/@openzeppelin/contracts@5.6.1/utils/ShortStrings.sol",
+  "@openzeppelin/contracts@5.6.1/utils/StorageSlot.sol": ".deps/npm/@openzeppelin/contracts@5.6.1/utils/StorageSlot.sol",
+  "@openzeppelin/contracts@5.6.1/interfaces/IERC5267.sol": ".deps/npm/@openzeppelin/contracts@5.6.1/interfaces/IERC5267.sol",
+  "@openzeppelin/contracts@5.6.1/utils/Nonces.sol": ".deps/npm/@openzeppelin/contracts@5.6.1/utils/Nonces.sol"
 }
