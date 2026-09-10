@@ -15,9 +15,19 @@ contract GenerateNFT is ERC721, ERC721Pausable, Ownable {
 
     uint256 public requiredPrice;
 
+    // mappping
+
     mapping(address => bool) public whitelist;
 
     mapping(address => uint256) public whiteListMinted;
+
+    // events
+
+    event NFTMinted(address indexed _user, uint256 _quantity);
+
+    event AddWhiteListUser(address indexed _user);
+
+    event RemovedFromWhitelist(address indexed user);
 
     constructor(
         address initialOwner
@@ -66,14 +76,18 @@ contract GenerateNFT is ERC721, ERC721Pausable, Ownable {
             _safeMint(msg.sender, tokenId);
             _nextTokenId++;
         }
+
+        emit NFTMinted(msg.sender, _quantity);
     }
 
     function whitelistUser(address _user) external onlyOwner {
         whitelist[_user] = true;
+        emit AddWhiteListUser(_user);
     }
 
     function removeWhiteListUser(address _user) external onlyOwner {
         whitelist[_user] = false;
+        emit RemovedFromWhitelist(_user);
     }
 
     function whiteListMint(uint256 _quantity) public payable {
