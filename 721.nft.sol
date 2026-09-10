@@ -13,6 +13,13 @@ contract GenerateNFT is ERC721, ERC721Pausable, Ownable {
 
     uint256 public constant mintPrice = 0.01 ether;
 
+    uint256 public requiredPrice;
+
+
+    mapping(address => bool) public whitelist;
+
+    mapping(address => uint256) public whiteListMinted;
+
     constructor(
         address initialOwner
     ) ERC721("GenerateNFT", "GNFT") Ownable(initialOwner) {
@@ -52,10 +59,40 @@ contract GenerateNFT is ERC721, ERC721Pausable, Ownable {
             "Max supply reached"
         );
 
-        uint256 requiredPrice = _quantity * mintPrice;
+        requiredPrice = _quantity * mintPrice;
         require(msg.value >= requiredPrice, "Insufficient payment");
 
         for (uint256 i = 1; i <= _quantity; i++) {
+            uint256 tokenId = _nextTokenId;
+            _safeMint(msg.sender, tokenId);
+            _nextTokenId++;
+        }
+    }
+
+    function whitelistUser(address _user) external onlyOwner {
+        whitelist[_user] = true;
+    }
+
+    function removeWhiteListUser(address _user) external onlyOwner {
+        whitelist[_user] = false;
+    }
+
+    function whiteListMint(uint256 _quantity) public payable {
+        require(
+            whitelist[msg.sender] == true,
+            "You're Not On The Whitelist Mine Thanks!"
+        );
+        require(_quantity > 0, "Invalid quantity");
+
+        require(
+            whiteListMinted[msg.sender] + _quantity <= 2,
+            "Whitelist max 2 NFTs"
+        );
+
+        requiredPrice = _quantity * mintPrice;
+        require(msg.value > mintPrice, "Indfficient Balance");
+
+        for (uint256 i = 0; i < _quantity; i++) {
             uint256 tokenId = _nextTokenId;
             _safeMint(msg.sender, tokenId);
             _nextTokenId++;
