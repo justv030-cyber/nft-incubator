@@ -20,7 +20,7 @@ contract StakeNFT is
     uint256 public constant maxSupply = 1000;
 
     constructor(
-        address initialOwnera
+        address initialOwner
     ) ERC721("stakeNFT", "SNFT") Ownable(initialOwner) {
         _nextTokenId = 1;
     }
