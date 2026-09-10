@@ -9,10 +9,15 @@ import {ERC721Pausable} from "@openzeppelin/contracts/token/ERC721/extensions/ER
 contract GenerateNFT is ERC721, ERC721Pausable, Ownable {
     uint256 private _nextTokenId;
 
-    constructor(address initialOwner)
-        ERC721("GenerateNFT", "GNFT")
-        Ownable(initialOwner)
-    {}
+    uint256 public constant maxSupply = 10000;
+
+    uint256 public constant mintPrice = 0.01 ether;
+
+    constructor(
+        address initialOwner
+    ) ERC721("GenerateNFT", "GNFT") Ownable(initialOwner) {
+        _nextTokenId = 1;
+    }
 
     function pause() public onlyOwner {
         _pause();
@@ -23,6 +28,7 @@ contract GenerateNFT is ERC721, ERC721Pausable, Ownable {
     }
 
     function safeMint(address to) public onlyOwner returns (uint256) {
+        require(_nextTokenId <= maxSupply, "max Supply Reached");
         uint256 tokenId = _nextTokenId++;
         _safeMint(to, tokenId);
         return tokenId;
@@ -30,11 +36,29 @@ contract GenerateNFT is ERC721, ERC721Pausable, Ownable {
 
     // The following functions are overrides required by Solidity.
 
-    function _update(address to, uint256 tokenId, address auth)
-        internal
-        override(ERC721, ERC721Pausable)
-        returns (address)
-    {
+    function _update(
+        address to,
+        uint256 tokenId,
+        address auth
+    ) internal override(ERC721, ERC721Pausable) returns (address) {
         return super._update(to, tokenId, auth);
+    }
+
+    function mint(uint256 _quantity) external payable {
+        require(_quantity > 0, "Quantity must be greater than 0");
+        require(_quantity <= 5, "Max 5 NFTs");
+        require(
+            _nextTokenId + _quantity - 1 <= maxSupply,
+            "Max supply reached"
+        );
+
+        uint256 requiredPrice = _quantity * mintPrice;
+        require(msg.value >= requiredPrice, "Insufficient payment");
+
+        for (uint256 i = 1; i <= _quantity; i++) {
+            uint256 tokenId = _nextTokenId;
+            _safeMint(msg.sender, tokenId);
+            _nextTokenId++;
+        }
     }
 }
