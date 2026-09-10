@@ -90,7 +90,7 @@ contract GenerateNFT is ERC721, ERC721Pausable, Ownable {
         );
 
         requiredPrice = _quantity * mintPrice;
-        require(msg.value > mintPrice, "Indfficient Balance");
+        require(msg.value == requiredPrice, "Incorrect payment");
 
         for (uint256 i = 0; i < _quantity; i++) {
             uint256 tokenId = _nextTokenId;
