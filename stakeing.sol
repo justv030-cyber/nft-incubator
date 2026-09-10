@@ -42,7 +42,6 @@ contract StakeToken is
 
     event RewardClaimed(address indexed user, uint256 reward);
 
-    mapping(address => uint256) public lastStakeTime;
 
     constructor(
         address initialOwner
