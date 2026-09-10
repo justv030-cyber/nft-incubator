@@ -15,7 +15,6 @@ contract GenerateNFT is ERC721, ERC721Pausable, Ownable {
 
     uint256 public requiredPrice;
 
-
     mapping(address => bool) public whitelist;
 
     mapping(address => uint256) public whiteListMinted;
@@ -60,7 +59,7 @@ contract GenerateNFT is ERC721, ERC721Pausable, Ownable {
         );
 
         requiredPrice = _quantity * mintPrice;
-        require(msg.value >= requiredPrice, "Insufficient payment");
+        require(msg.value == requiredPrice, "Incorrect payment");
 
         for (uint256 i = 1; i <= _quantity; i++) {
             uint256 tokenId = _nextTokenId;
@@ -88,6 +87,10 @@ contract GenerateNFT is ERC721, ERC721Pausable, Ownable {
             whiteListMinted[msg.sender] + _quantity <= 2,
             "Whitelist max 2 NFTs"
         );
+        require(
+            _nextTokenId + _quantity - 1 <= maxSupply,
+            "Max supply reached"
+        );
 
         requiredPrice = _quantity * mintPrice;
         require(msg.value == requiredPrice, "Incorrect payment");
@@ -97,5 +100,7 @@ contract GenerateNFT is ERC721, ERC721Pausable, Ownable {
             _safeMint(msg.sender, tokenId);
             _nextTokenId++;
         }
+
+        whiteListMinted[msg.sender] += _quantity;
     }
 }
