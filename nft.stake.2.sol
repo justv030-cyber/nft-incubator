@@ -74,7 +74,7 @@ contract NftStake {
 
         uint256 CalReward = calculateReward(_tokenId);
 
-        Token.transfer(msg.sender, CalReward);
+        require(Token.transfer(msg.sender, CalReward), "Transfer Failed");
 
         stakeNft[_tokenId].lastClaimTime = block.timestamp;
     }
