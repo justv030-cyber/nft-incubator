@@ -120,7 +120,7 @@ contract GenerateNFT is ERC721, ERC721Pausable, Ownable {
 
     function withdraw() external onlyOwner {
         uint256 contractBalance = address(this).balance;
-        require(msg.value > contractBalance, "Inffucient Balance In Contract");
+        require(contractBalance > 0, "No ETH in contract");
         (bool sucess, ) = payable(msg.sender).call{value: contractBalance}("");
         require(sucess, "Transfer Failed");
     }
